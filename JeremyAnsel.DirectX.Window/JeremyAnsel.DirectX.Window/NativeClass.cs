@@ -49,7 +49,7 @@ namespace JeremyAnsel.DirectX.Window
             fixed (char* classNamePtr = className)
             {
                 ClassInfoEx windowClass = new ClassInfoEx(
-                    ClassStyles.HorizontalRedraw | ClassStyles.VerticalRedraw,
+                    ClassStyles.HorizontalRedraw | ClassStyles.VerticalRedraw | ClassStyles.DoubleClicks,
                     windowProcedurePtr,
                     IntPtr.Zero,
                     icon != IntPtr.Zero ? icon : NativeMethods.LoadIcon(IntPtr.Zero, new IntPtr(32512)),

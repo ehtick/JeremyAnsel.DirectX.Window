@@ -277,6 +277,30 @@ namespace JeremyAnsel.DirectX.Window
                     this.window.Focus();
                     break;
 
+                case WindowMessageType.LeftButtonDown:
+                case WindowMessageType.RightButtonDown:
+                case WindowMessageType.MiddleButtonDown:
+                case WindowMessageType.XButtonDown:
+                case WindowMessageType.LeftButtonUp:
+                case WindowMessageType.RightButtonUp:
+                case WindowMessageType.MiddleButtonUp:
+                case WindowMessageType.XButtonUp:
+                case WindowMessageType.LeftButtonDoubleClick:
+                case WindowMessageType.RightButtonDoubleClick:
+                case WindowMessageType.MiddleButtonDoubleClick:
+                case WindowMessageType.XButtonDoubleClick:
+                case WindowMessageType.MouseMove:
+                case WindowMessageType.MouseWheel:
+                case WindowMessageType.MouseHorizontalWheel:
+                    {
+                        MouseModifiers modifiers = (MouseModifiers)((ulong)wParam & 0xffffU);
+                        short wheel = (short)((ulong)wParam >> 16);
+                        short iMouseX = (short)((ulong)lParam & 0xffffU);
+                        short iMouseY = (short)((ulong)lParam >> 16);
+                        this.window.OnMouseEvent(msg, modifiers, iMouseX, iMouseY, wheel);
+                    }
+                    break;
+
                 case WindowMessageType.KeyDown:
                 case WindowMessageType.KeyUp:
                     this.window.OnKeyboardEvent((VirtualKey)wParam, (int)((ulong)lParam & 0xFFFFU), ((ulong)lParam & 0x40000000U) != 0, ((ulong)lParam & 0x80000000U) == 0);

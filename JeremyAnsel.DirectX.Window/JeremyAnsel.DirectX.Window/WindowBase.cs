@@ -329,6 +329,10 @@ namespace JeremyAnsel.DirectX.Window
             }
         }
 
+        protected internal virtual void OnMouseEvent(WindowMessageType msg, MouseModifiers modifiers, short mouseX, short mouseY, short wheel)
+        {
+        }
+
         protected internal virtual void OnPowerSuspend()
         {
         }
