@@ -12,6 +12,18 @@ namespace JeremyAnsel.DirectX.Window
 {
     public abstract class WindowBase : INotifyPropertyChanged
     {
+        public enum PropertyType
+        {
+            None,
+            Title,
+            Width,
+            Height,
+            IsActive,
+            IsMinimized,
+            UpdateWhenInactive,
+            ExitOnEscapeKey,
+        }
+
         public static string? SingletonWindowKey;
 
         public static bool DoesSingletonWindowExist(string singletonWindowKey)
@@ -78,6 +90,7 @@ namespace JeremyAnsel.DirectX.Window
                     this.window.Title = value;
                 }
 
+                this.OnPropertyChanged(PropertyType.Title);
                 this.NotifyPropertyChanged();
             }
         }
@@ -94,6 +107,7 @@ namespace JeremyAnsel.DirectX.Window
                 if (this.width != value)
                 {
                     this.width = value;
+                    this.OnPropertyChanged(PropertyType.Width);
                     this.NotifyPropertyChanged();
                 }
             }
@@ -111,6 +125,7 @@ namespace JeremyAnsel.DirectX.Window
                 if (this.height != value)
                 {
                     this.height = value;
+                    this.OnPropertyChanged(PropertyType.Height);
                     this.NotifyPropertyChanged();
                 }
             }
@@ -128,6 +143,7 @@ namespace JeremyAnsel.DirectX.Window
                 if (this.isActive != value)
                 {
                     this.isActive = value;
+                    this.OnPropertyChanged(PropertyType.IsActive);
                     this.NotifyPropertyChanged();
                 }
             }
@@ -145,6 +161,7 @@ namespace JeremyAnsel.DirectX.Window
                 if (this.isMinimized != value)
                 {
                     this.isMinimized = value;
+                    this.OnPropertyChanged(PropertyType.IsMinimized);
                     this.NotifyPropertyChanged();
                 }
             }
@@ -167,6 +184,7 @@ namespace JeremyAnsel.DirectX.Window
                 if (this.updateWhenInactive != value)
                 {
                     this.updateWhenInactive = value;
+                    this.OnPropertyChanged(PropertyType.UpdateWhenInactive);
                     this.NotifyPropertyChanged();
                 }
             }
@@ -184,6 +202,7 @@ namespace JeremyAnsel.DirectX.Window
                 if (this.exitOnEscapeKey != value)
                 {
                     this.exitOnEscapeKey = value;
+                    this.OnPropertyChanged(PropertyType.ExitOnEscapeKey);
                     this.NotifyPropertyChanged();
                 }
             }
@@ -197,6 +216,10 @@ namespace JeremyAnsel.DirectX.Window
         protected void NotifyPropertyChanged([CallerMemberName] string? name = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        protected virtual void OnPropertyChanged(PropertyType property)
+        {
         }
 
         public void BuildWindow()
@@ -285,6 +308,7 @@ namespace JeremyAnsel.DirectX.Window
             switch (msg)
             {
                 case WindowMessageType.SetText:
+                    this.OnPropertyChanged(PropertyType.Title);
                     this.NotifyPropertyChanged(nameof(Title));
                     break;
             }
