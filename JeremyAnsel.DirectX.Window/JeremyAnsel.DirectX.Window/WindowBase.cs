@@ -295,6 +295,10 @@ namespace JeremyAnsel.DirectX.Window
 
         protected internal abstract void Init();
 
+        protected internal virtual void OnDestroy()
+        {
+        }
+
         protected internal abstract void Update();
 
         protected internal abstract void Render();

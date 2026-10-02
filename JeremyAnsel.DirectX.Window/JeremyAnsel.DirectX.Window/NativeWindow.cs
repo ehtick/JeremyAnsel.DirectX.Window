@@ -218,6 +218,7 @@ namespace JeremyAnsel.DirectX.Window
             switch (msg)
             {
                 case WindowMessageType.Destroy:
+                    this.window.OnDestroy();
                     this.doUpdateRender = false;
                     this.doPostQuitMessage = true;
                     return new IntPtr(1);
